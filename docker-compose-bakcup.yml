@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+
+   mongodb:
+      image: mongo
+      container_name: mongo
+      restart: unless-stopped
+      command: mongod --auth
+      environment:
+         MONGO_INITDB_ROOT_USERNAME: "admin"
+         MONGO_INITDB_ROOT_PASSWORD: "test1234"
+         MONGO_INITDB_DATABASE: mcdDB
+         MONGODB_DATA_DIR: /data/db
+      volumes:
+         - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+         - mongodbdata:/data/db
+      networks:
+         - backend
+
+   api:
+      build: ./backend/
+      ports:
+         - "4433:4433"
+      environment:
+         MONGODB_HOST: mongodb
+         MONGODB_USERNAME: "admin"
+         MONGODB_PASSWORD: "test1234"
+         PORT: 4433
+         FLASK_DEBUG: 1
+      volumes:
+         - ./backend/:/app/
+      depends_on: 
+         - mongodb
+      networks:
+         - backend
+
+networks:
+    backend:
+        driver: bridge
+volumes:
+    mongodbdata:
+        driver: local
+    appdata:
+        driver: local

@@ -1,0 +1,10 @@
+*.log
+__pycache__
+node_modules
+backend/uploaded_docs
+env
+build
+.gcloudignore
+*.ipynb
+*.zip
+*.pyc
