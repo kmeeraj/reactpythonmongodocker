@@ -3,11 +3,7 @@ import os
 import pymongo
 import json
 from pymongo import MongoClient
-
-#import pprint
-
 from flask_cors import CORS, cross_origin
- 
 from flask import Flask, Response, request
 #from flask_mongoengine import MongoEngine
 from logger import MyLogger
@@ -35,15 +31,9 @@ def index():
 	payload = {};
 	logger.debug('successfully fetches tags from all the task')
 	for doc in db.status.find():
-		#pprint.pprint(doc)
 		logger.debug(doc)
 		payload = doc['text']
 	logger.debug('payload' + payload)
-	#return Response({ 'data': payload}, mimetype="application/json", status=200)
 	return (json.dumps({ 'data': payload}), 200, {'content-type': 'application/json'})
-	#pprint.pprint('hi')
-	#return Response({'data': 'payload'}, mimetype="application/json", status=200)
-	#return "Praise the Lord. The Lord shall bless thee out of Zion"
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.getenv('PORT'))
