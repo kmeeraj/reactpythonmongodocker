@@ -20,8 +20,8 @@ services:
       command: mongod --auth
       environment:
          MONGO_INITDB_ROOT_USERNAME: "admin"
-         MONGO_INITDB_ROOT_PASSWORD: "test1234"
-         MONGO_INITDB_DATABASE: mcdDB
+         MONGO_INITDB_ROOT_PASSWORD: "admin"
+         MONGO_INITDB_DATABASE: appDB
          MONGODB_DATA_DIR: /data/db
       volumes:
          - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
