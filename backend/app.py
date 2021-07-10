@@ -16,14 +16,14 @@ app.config['CORS_HEADERS'] = 'Content-Type'
     'host': os.environ['MONGODB_HOST'],
     'username': os.environ['MONGODB_USERNAME'],
     'password': os.environ['MONGODB_PASSWORD'],
-    'db': 'mcdDB'
+    'db': 'appDB'
 }'''
 
 #db = MongoEngine()
 #db.init_app(app)
 
-client =  MongoClient("mongodb://admin:test1234@mongodb:27017")
-db = client.mcdDB
+client =  MongoClient("mongodb://admin:admin@mongodb:27017")
+db = client.appDB
 logger = MyLogger('main', './server2.log', use_stdout=True, log_level='debug')
 
 @app.route("/api", methods=['GET', 'POST'])
